@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: #faf9f6;
+            color: #2a2a2a;
+            line-height: 1.6;
+        }
+
+        header {
+            padding: 4rem 2rem;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 3rem;
+            font-weight: 300;
+            margin-bottom: 0.5rem;
+            font-family: 'Courier New', monospace;
+        }
+
+        .subtitle {
+            font-size: 1.1rem;
+            color: #666;
+            font-weight: 300;
+        }
+
+        nav {
+            padding: 2rem;
+            text-align: center;
+        }
+
+        nav a {
+            color: #2a2a2a;
+            text-decoration: none;
+            margin: 0 1.5rem;
+            font-size: 0.95rem;
+            transition: opacity 0.3s;
+            text-transform: lowercase;
+        }
+
+        nav a:hover {
+            opacity: 0.6;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            margin-bottom: 3rem;
+            font-weight: 300;
+            text-align: center;
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2.5rem;
+            margin-top: 2rem;
+        }
+
+        .project-blob {
+            position: relative;
+            padding: 2.5rem 2rem;
+            background: white;
+            border: 2px solid #2a2a2a;
+            border-radius: 63% 37% 54% 46% / 55% 48% 52% 45%;
+            transition: all 0.4s ease;
+            cursor: pointer;
+            min-height: 280px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            overflow: hidden;
+            text-decoration: none;
+            color: #2a2a2a;
+        }
+
+        .project-blob::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 120px;
+            background-size: cover;
+            background-position: center;
+            opacity: 0.15;
+            transition: opacity 0.4s ease;
+            z-index: 0;
+        }
+
+        .project-blob {
+            position: relative;
+            padding: 0;
+            background-color: white;
+            border: 2px solid #2a2a2a;
+            border-radius: 63% 37% 54% 46% / 55% 48% 52% 45%;
+            transition: all 0.4s ease;
+            cursor: pointer;
+            min-height: 280px;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            text-decoration: none;
+            color: #2a2a2a;
+        }
+
+        .project-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            opacity: 0.3;
+            transition: opacity 0.4s ease;
+        }
+
+        .project-blob:hover .project-image {
+            opacity: 0.2;
+        }
+
+        .project-content {
+            position: relative;
+            z-index: 2;
+            padding: 2.5rem 2rem;
+            margin-top: auto;
+            background: linear-gradient(to top, rgba(255,255,255,0.95) 70%, transparent 100%);
+        }
+
+        .project-blob:nth-child(1) {
+            border-radius: 51% 49% 48% 52% / 62% 44% 56% 38%;
+        }
+
+        .project-blob:nth-child(2) {
+            border-radius: 41% 59% 57% 43% / 48% 62% 38% 52%;
+        }
+
+        .project-blob:nth-child(3) {
+            border-radius: 68% 32% 51% 49% / 44% 59% 41% 56%;
+        }
+
+        .project-blob:nth-child(4) {
+            border-radius: 38% 62% 49% 51% / 59% 41% 59% 41%;
+        }
+
+        .project-blob:nth-child(5) {
+            border-radius: 59% 41% 63% 37% / 52% 58% 42% 48%;
+        }
+
+        .project-blob:nth-child(6) {
+            border-radius: 46% 54% 39% 61% / 58% 47% 53% 42%;
+        }
+
+        .project-blob:hover {
+            transform: rotate(-2deg) scale(1.05);
+            box-shadow: 8px 8px 0 rgba(0, 0, 0, 0.1);
+        }
+
+        .project-number {
+            font-size: 0.75rem;
+            color: #999;
+            margin-bottom: 0.5rem;
+            font-family: 'Courier New', monospace;
+        }
+
+        .project-title {
+            font-size: 1.4rem;
+            margin-bottom: 0.8rem;
+            font-weight: 500;
+        }
+
+        .project-desc {
+            font-size: 0.9rem;
+            color: #666;
+            line-height: 1.5;
+        }
+
+        .project-tags {
+            margin-top: 1rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .tag {
+            font-size: 0.75rem;
+            padding: 0.3rem 0.8rem;
+            background: #f0f0f0;
+            border-radius: 20px;
+            color: #555;
+        }
+
+        footer {
+            text-align: center;
+            padding: 3rem 2rem;
+            margin-top: 4rem;
+            border-top: 1px solid #ddd;
+            font-size: 0.9rem;
+            color: #999;
+        }
+
+        .social-links {
+            margin-top: 1rem;
+        }
+
+        .social-links a {
+            color: #2a2a2a;
+            text-decoration: none;
+            margin: 0 1rem;
+            transition: opacity 0.3s;
+        }
+
+        .social-links a:hover {
+            opacity: 0.6;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+
+            .projects-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            nav a {
+                display: block;
+                margin: 0.5rem 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="#projets">projets</a>
+        <a href="#about">à propos</a>
+        <a href="#contact">contact</a>
+    </nav>
+
+    <div class="container">
+        <section id="projets">
+            <h2 class="section-title">mes petits projets vibe codés</h2>
+            
+            <div class="projects-grid">
+                <a href="https://ton-lien-du-jeu.com" target="_blank" class="project-blob">
+                    <img src="https://i.ibb.co/JRFz84C4/IohzAoc.png" alt="Mini Jeu" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0.3; z-index: 0;">
+                    <div class="project-content">
+                        <div class="project-number">001</div>
+                        <h3 class="project-title">Mini Jeu Fun</h3>
+                        <p class="project-desc">Un petit jeu codé pour s'amuser et explorer des mécaniques sympas</p>
+                        <div class="project-tags">
+                            <span class="tag">javascript</span>
+                            <span class="tag">game</span>
+                        </div>
+                    </div>
+                </a>
+
+                <a href="https://ton-projet-2.com" target="_blank" class="project-blob">
+                    <img src="https://i.ibb.co/FL1jJ2wv/Sd6itCS.png" alt="Projet 2" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0.3; z-index: 0;">
+                    <div class="project-content">
+                        <div class="project-number">002</div>
+                        <h3 class="project-title">Autre Projet</h3>
+                        <p class="project-desc">Un truc expérimental que t'as codé un soir par curiosité</p>
+                        <div class="project-tags">
+                            <span class="tag">react</span>
+                            <span class="tag">api</span>
+                        </div>
+                    </div>
+                </a>
+
+                <a href="https://ton-projet-3.com" target="_blank" class="project-blob" style="background-image: url('https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=400');">
+                    <div class="project-content">
+                        <div class="project-number">003</div>
+                        <h3 class="project-title">Side Project</h3>
+                        <p class="project-desc">Cette idée random qui s'est transformée en quelque chose de cool</p>
+                        <div class="project-tags">
+                            <span class="tag">python</span>
+                            <span class="tag">automation</span>
+                        </div>
+                    </div>
+                </a>
+
+                <a href="https://ton-projet-4.com" target="_blank" class="project-blob" style="background-image: url('https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=400');">
+                    <div class="project-content">
+                        <div class="project-number">004</div>
+                        <h3 class="project-title">Expériment</h3>
+                        <p class="project-desc">Juste pour le fun, voir ce qui se passe quand tu code sans limite</p>
+                        <div class="project-tags">
+                            <span class="tag">css</span>
+                            <span class="tag">animation</span>
+                        </div>
+                    </div>
+                </a>
+
+                <a href="https://ton-projet-5.com" target="_blank" class="project-blob" style="background-image: url('https://images.unsplash.com/photo-1487058792275-0ad4aaf24ca7?w=400');">
+                    <div class="project-content">
+                        <div class="project-number">005</div>
+                        <h3 class="project-title">Mini Tool</h3>
+                        <p class="project-desc">Un petit outil pratique qui résout un problème spécifique</p>
+                        <div class="project-tags">
+                            <span class="tag">vanilla js</span>
+                            <span class="tag">utility</span>
+                        </div>
+                    </div>
+                </a>
+
+                <a href="https://ton-projet-6.com" target="_blank" class="project-blob" style="background-image: url('https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=400');">
+                    <div class="project-content">
+                        <div class="project-number">006</div>
+                        <h3 class="project-title">Creative Code</h3>
+                        <p class="project-desc">Du code génératif ou artistique, parce que pourquoi pas</p>
+                        <div class="project-tags">
+                            <span class="tag">canvas</span>
+                            <span class="tag">art</span>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </section>
+
+        <section id="about" style="margin-top: 6rem;">
+            <h2 class="section-title">à propos</h2>
+            <div style="max-width: 600px; margin: 0 auto; text-align: center; color: #666;">
+                <p>Développeur qui code sur la vibe. J'aime expérimenter, créer des trucs random et voir où ça mène. Chaque projet est une nouvelle aventure.</p>
+            </div>
+        </section>
+    </div>
+
+    <footer id="contact">
+        <p>on reste en contact ?</p>
+        <div class="social-links">
+            <a href="#">github</a>
+            <a href="#">twitter</a>
+            <a href="#">email</a>
+        </div>
+    </footer>
+</body>
+</html>
